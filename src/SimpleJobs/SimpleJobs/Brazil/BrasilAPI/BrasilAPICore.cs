@@ -1,21 +1,14 @@
-﻿using System.Runtime.ConstrainedExecution;
-
-namespace SimpleJobs.Brazil.BrasilAPI;
+﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
 /// <summary>
 /// This class is an abstraction for accessing the <see href="https://brasilapi.com.br/">BrasilAPI</see> project
 /// </summary>
-public class BrasilAPICore
+public static class BrasilAPICore
 {
     /// <summary>
     /// base Url for solicitation
     /// </summary>
-    private readonly string _baseUrl = "https://brasilapi.com.br/api/";
-
-    /// <summary>
-    /// Http Client for comunication
-    /// </summary>
-    private static readonly HttpClient client = new();
+    private static readonly string _baseUrl = "https://brasilapi.com.br/api/";
 
     #region BANKS   
 
@@ -24,57 +17,20 @@ public class BrasilAPICore
     /// </summary>
     /// <param name="code">Bank Code</param>
     /// <returns>Bank</returns>
-    public async Task<IResponseBase<Bank>> GetBank(string code)
+    public static async Task<IResponseBase<Bank>> GetBank(string code)
     {
-        string url = _baseUrl + "banks/v1/" + code;
-        try
-        {
-            using HttpResponseMessage response = await client.GetAsync(url);
-
-            // Special Error Check
-            if (response.StatusCode == HttpStatusCode.NotFound)
-                return new ResponseBase<Bank>() { Success = false, Mensage = "404 - Bank code not found." };
-
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return new ResponseBase<Bank>() { Success = true, Mensage = "Ok", Content = JsonSerializer.Deserialize<Bank>(responseBody) };
-        }
-        catch (HttpRequestException ex)
-        {           
-
-#if DEBUG
-            return new ResponseBase<Bank>() { Success = false, Mensage = ex.ToString() };
-#else
-            return new ResponseBase<Bank>() { Success = false, Mensage = "Not valid or inconsistent response." };
-#endif
-        }
+        string url = "banks/v1/" + code;
+        return await GetAsync<Bank>(url, error404: "Bank code not found.");
     }
 
     /// <summary>
     /// Returns information from all banks in Brazil
     /// </summary>
     /// <returns>List of Banks</returns>
-    public async Task<IResponseBase<IList<Bank>>> GetBanks()
+    public static async Task<IResponseBase<IList<Bank>>> GetBanks()
     {
-        string url = _baseUrl + "banks/v1";
-
-        try
-        {
-            using HttpResponseMessage response = await client.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return new ResponseBase<IList<Bank>>() { Success = true, Mensage = "Ok", Content = JsonSerializer.Deserialize<List<Bank>>(responseBody) };
-        }
-        catch (HttpRequestException ex)
-        {
-#if DEBUG
-            return new ResponseBase<IList<Bank>>() { Success = false, Mensage = ex.ToString() };
-#else
-            return new ResponseBase<IList<Bank>>() { Success = false, Mensage = "Not valid or inconsistent response." };
-#endif
-        }
+        string url = "banks/v1";
+        return await GetAsync<IList<Bank>>(url);
     }
 
     #endregion BANKS
@@ -88,30 +44,10 @@ public class BrasilAPICore
     /// <param name="cep">Zip code</param>
     /// <returns>Full Adress</returns>
     [Obsolete("This method is obsolete. Call GetCepV2 instead.", false)]
-    public async Task<IResponseBase<Cep>> GetCep(string cep)
+    public static async Task<IResponseBase<Cep>> GetCep(string cep)
     {
-        string url = _baseUrl + "cep/v1/" + cep.ClearSpecialCharacters();
-        try
-        {
-            using HttpResponseMessage response = await client.GetAsync(url);
-
-            // Special Error Check
-            if (response.StatusCode == HttpStatusCode.NotFound)
-                return new ResponseBase<Cep>() { Success = false, Mensage = "404 - All CEP services returned an error." };
-
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return new ResponseBase<Cep>() { Success = true, Mensage = "Ok", Content = JsonSerializer.Deserialize<Cep>(responseBody) };
-        }
-        catch (HttpRequestException ex)
-        {
-#if DEBUG
-            return new ResponseBase<Cep>() { Success = false, Mensage = ex.ToString() };
-#else
-            return new ResponseBase<Cep>() { Success = false, Mensage = "Not valid or inconsistent response." };
-#endif
-        }
+        string url = "cep/v1/" + cep.ClearSpecialCharacters();
+        return await GetAsync<Cep>(url, error404: "All CEP services returned an error.");
     }
 
     /// <summary>
@@ -119,30 +55,10 @@ public class BrasilAPICore
     /// </summary>
     /// <param name="cep">Zip code</param>
     /// <returns>Full Adress</returns>
-    public async Task<IResponseBase<Cep>> GetCepV2(string cep)
+    public static async Task<IResponseBase<Cep>> GetCepV2(string cep)
     {
-        string url = _baseUrl + "cep/v2/" + cep.ClearSpecialCharacters();
-        try
-        {
-            using HttpResponseMessage response = await client.GetAsync(url);
-
-            // Special Error Check
-            if (response.StatusCode == HttpStatusCode.NotFound)
-                return new ResponseBase<Cep>() { Success = false, Mensage = "404 - All CEP services returned an error." };
-
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return new ResponseBase<Cep>() { Success = true, Mensage = "Ok", Content = JsonSerializer.Deserialize<Cep>(responseBody) };
-        }
-        catch (HttpRequestException ex)
-        {
-#if DEBUG
-            return new ResponseBase<Cep>() { Success = false, Mensage = ex.ToString() };
-#else
-            return new ResponseBase<Cep>() { Success = false, Mensage = "Not valid or inconsistent response." };
-#endif
-        }
+        string url = "cep/v2/" + cep.ClearSpecialCharacters();
+        return await GetAsync<Cep>(url, error404: "All CEP services returned an error.");
     }
 
     #endregion CEP
@@ -154,33 +70,13 @@ public class BrasilAPICore
     /// </summary>
     /// <param name="cnpj">CNPJ Document Number</param>
     /// <returns>CNPJ Information</returns>
-    public async Task<IResponseBase<Cnpj>> GetCNPJInfo(string cnpj)
+    public static async Task<IResponseBase<Cnpj>> GetCNPJInfo(string cnpj)
     {
-        string url = _baseUrl + "cnpj/v1/" + cnpj.ClearSpecialCharacters();
-        try
-        {
-            if(BrazilValidations.CheckForCNPJ(cnpj) != BrazilValidationResult.Success)
-                return new ResponseBase<Cnpj>() { Success = false, Mensage = "Wrong CNPJ Number" };
+        if (BrazilValidations.CheckForCNPJ(cnpj) != BrazilValidationResult.Success)
+            return new ResponseBase<Cnpj>() { Success = false, Mensage = "Wrong CNPJ Number" };
 
-            using HttpResponseMessage response = await client.GetAsync(url);
-
-            // Special Error Check
-            if (response.StatusCode == HttpStatusCode.NotFound)
-                return new ResponseBase<Cnpj>() { Success = false, Mensage = "404 - Error returned by Minha Receita API." };
-
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return new ResponseBase<Cnpj>() { Success = true, Mensage = "Ok", Content = JsonSerializer.Deserialize<Cnpj>(responseBody) };
-        }
-        catch (HttpRequestException ex)
-        {
-#if DEBUG
-            return new ResponseBase<Cnpj>() { Success = false, Mensage = ex.ToString() };
-#else
-            return new ResponseBase<Cnpj>() { Success = false, Mensage = "Not valid or inconsistent response." };
-#endif
-        }
+        string url = "cnpj/v1/" + cnpj.ClearSpecialCharacters();
+        return await GetAsync<Cnpj>(url, error404: "Error returned by Minha Receita API.");
     }
 
     #endregion CNPJ 
@@ -191,33 +87,10 @@ public class BrasilAPICore
     /// Returns state and list of cities by DDD
     /// </summary>
     /// <returns>State and list of cities by DDD</returns>
-    public async Task<IResponseBase<DDD>> GetDDD(int ddd)
+    public static async Task<IResponseBase<DDD>> GetDDD(int ddd)
     {
-        string url = _baseUrl + "ddd/v1/" + ddd;
-        try
-        {
-            using HttpResponseMessage response = await client.GetAsync(url);
-
-            // Special Error Check
-            if (response.StatusCode == HttpStatusCode.NotFound)
-                return new ResponseBase<DDD>() { Success = false, Mensage = "404 - DDDcode not found." };
-
-            if (response.StatusCode == HttpStatusCode.InternalServerError)
-                return new ResponseBase<DDD>() { Success = false, Mensage = "500 - All DDD services returned an error." };
-
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return new ResponseBase<DDD>() { Success = true, Mensage = "Ok", Content = JsonSerializer.Deserialize<DDD>(responseBody) };
-        }
-        catch (HttpRequestException ex)
-        {
-#if DEBUG
-            return new ResponseBase<DDD>() { Success = false, Mensage = ex.ToString() };
-#else
-            return new ResponseBase<DDD>() { Success = false, Mensage = "Not valid or inconsistent response." };
-#endif
-        }
+        string url = "ddd/v1/" + ddd;
+        return await GetAsync<DDD>(url, error404: "DDD code not found.", error500: "All DDD services returned an error.");
     }
 
     #endregion DDD
@@ -230,33 +103,10 @@ public class BrasilAPICore
     /// </summary>
     /// <param name="year">Year to calculate holidays.</param>
     /// <returns>Lists of Brazil national holidays</returns>
-    public async Task<IResponseBase<BrazilHolidays>> GetHolidays(int year)
+    public static async Task<IResponseBase<BrazilHolidays>> GetHolidays(int year)
     {
-        string url = _baseUrl + "feriados/v1/" + year;
-        try
-        {
-            using HttpResponseMessage response = await client.GetAsync(url);
-
-            // Special Error Check
-            if (response.StatusCode == HttpStatusCode.NotFound)
-                return new ResponseBase<BrazilHolidays>() { Success = false, Mensage = "404 - Year outside the supported range between 1900 and 2199." };
-
-            if (response.StatusCode == HttpStatusCode.InternalServerError)
-                return new ResponseBase<BrazilHolidays>() { Success = false, Mensage = "500 - Error calculating holidays." };
-
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            return new ResponseBase<BrazilHolidays>() { Success = true, Mensage = "Ok", Content = JsonSerializer.Deserialize<BrazilHolidays>(responseBody) };
-        }
-        catch (HttpRequestException ex)
-        {
-#if DEBUG
-            return new ResponseBase<BrazilHolidays>() { Success = false, Mensage = ex.ToString() };
-#else
-            return new ResponseBase<BrazilHolidays>() { Success = false, Mensage = "Not valid or inconsistent response." };
-#endif
-        }
+        string url = "feriados/v1/" + year;
+        return await GetAsync<BrazilHolidays>(url, error404: "Year outside the supported range between 1900 and 2199.", error500: "Error calculating holidays.");
     }
 
     #endregion Brazil National holidays
@@ -267,30 +117,32 @@ public class BrasilAPICore
     /// Lists vehicle brands by vehicle type.
     /// </summary>
     /// /// <param name="vehicleType">Vehicle Type Enumerator</param>
-    /// <exception cref="NotImplementedException"></exception>
-    public void GetFIPEBrands(VehicleTypes vehicleType)
+    /// <returns>List of the vehicle brands by vehicle type.</returns>
+    public static async Task<IResponseBase<IList<FipeBrands>>> GetFIPEBrands(VehicleTypes vehicleType)
     {
-        throw new NotImplementedException();
+        string url = "fipe/marcas/v1/" + vehicleType.GetVehicleType();
+        return await GetAsync<IList<FipeBrands>>(url, "Invalid reference table.");
     }
 
     /// <summary>
     /// Consult the price of the vehicle according to the fipe table.
     /// </summary>
-    /// /// <param name="fipeCode">VFIPE Code</param>
-    /// <exception cref="NotImplementedException"></exception>
-    public void GetFIPEPrice(string fipeCode)
+    /// /// <param name="fipeCode">FIPE Code</param>
+    /// <returns>Price information of the vehicle according to the fipe table.</returns>
+    public static async Task<IResponseBase<IList<FipeVehicle>>> GetFIPEPrice(string fipeCode)
     {
-        throw new NotImplementedException();
+        string url = "fipe/preco/v1/" + fipeCode;
+        return await GetAsync<IList<FipeVehicle>>(url,  "Invalid FIPE code.", "ISBN not found");
     }
-
 
     /// <summary>
     /// Lists existing reference tables.
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
-    public void GetFIPETable()
+    /// <returns>List of the existing reference tables.</returns>
+    public static async Task<IResponseBase<IList<FipeTables>>> GetFIPETable()
     {
-        throw new NotImplementedException();
+        string url = "fipe/tabelas/v1";
+        return await GetAsync<IList<FipeTables>>(url);
     }
 
     #endregion FIPE
@@ -301,29 +153,32 @@ public class BrasilAPICore
     /// Returns the municipalities of the federative unit
     /// </summary>
     /// <param name="uf">Federative unit</param>
-    /// <exception cref="NotImplementedException"></exception>
-    public void GetIBGECodes(string uf)
+    /// <returns>List of IBGE Code Federative Unit</returns>
+    public static async Task<IResponseBase<IList<IbgeCities>>> GetIBGECodes(string uf)
     {
-        throw new NotImplementedException();
+        string url = "ibge/municipios/v1/" + uf + "?providers=dados-abertos-br,gov,wikipedia";
+        return await GetAsync<IList<IbgeCities>>(url, error404: "UF not found");
     }
 
     /// <summary>
     /// Returns information from all states in Brazil
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
-    public void GetIBGE()
+    /// <returns>List of information from all states in Brazil.</returns>
+    public static async Task<IResponseBase<IList<Ibge>>> GetIBGE()
     {
-        throw new NotImplementedException();
+        string url = "ibge/uf/v1";
+        return await GetAsync<IList<Ibge>>(url);
     }
 
     /// <summary>
     /// Search the information of a state from the abbreviation or code
     /// </summary>
     /// <param name="ibgeCode">IBGE Code</param>
-    /// <exception cref="NotImplementedException"></exception>
-    public void GetIBGE(string ibgeCode)
+    /// <returns>Information of a state in Brazil.</returns>
+    public static async Task<IResponseBase<Ibge>> GetIBGE(string ibgeCode)
     {
-        throw new NotImplementedException();
+        string url = "ibge/uf/v1/" + ibgeCode;
+        return await GetAsync<Ibge>(url, error404: "IBGE Code not found.");
     }
 
     #endregion IBGE
@@ -334,10 +189,11 @@ public class BrasilAPICore
     /// Information about the book from the ISBN
     /// </summary>
     /// <param name="isbn">ISBN Code</param>
-    /// <exception cref="NotImplementedException"></exception>
-    public void GetISBNInfo(string isbn)
+    /// <returns>Information about the book from the ISBN</returns>
+    public static async Task<IResponseBase<Isbn>> GetISBNInfo(string isbn)
     {
-        throw new NotImplementedException();
+        string url = "isbn/v1/" + isbn;
+        return await GetAsync<Isbn>(url, "Invalid ISBN", "ISBN not found", "All ISBN services returned an error.");
     }
 
     #endregion ISBN
@@ -347,30 +203,33 @@ public class BrasilAPICore
     /// <summary>
     /// Returns information from all NCMs
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
-    public void GetNCM()
+    /// <returns>List of information from all NCMs</returns>
+    public static async Task<IResponseBase<IList<Ncm>>> GetNCM()
     {
-        throw new NotImplementedException();
+        string url = "ncm/v1";
+        return await GetAsync<IList<Ncm>>(url);
     }
 
     /// <summary>
     /// Search for NCMs based on a code or description.
     /// </summary>
     /// <param name="ncmCode">NCM Code</param>
-    /// <exception cref="NotImplementedException"></exception>
-    public void SearchNCM(string ncmCode)
+    /// <returns>List of NCMs based on a code or description.</returns>
+    public static async Task<IResponseBase<IList<Ncm>>> SearchNCM(string ncmCode)
     {
-        throw new NotImplementedException();
+        string url = "ncm/v1?search=" + ncmCode;
+        return await GetAsync<IList<Ncm>>(url);
     }
 
     /// <summary>
     /// Search the information of an NCM from a code
     /// </summary>
     /// <param name="ncmCode">NCM Code</param>
-    /// <exception cref="NotImplementedException"></exception>
-    public void GetNCM(string ncmCode)
+    /// <returns>Information of an NCM.</returns>
+    public static async Task<IResponseBase<Ncm>> GetNCM(string ncmCode)
     {
-        throw new NotImplementedException();
+        string url = "ncm/v1/" + ncmCode;
+        return await GetAsync<Ncm>(url, error404: "NCM code not found.");
     }
 
     #endregion NCM
@@ -380,11 +239,12 @@ public class BrasilAPICore
     /// <summary>
     /// Evaluates the status of a .br domain, Registro BR
     /// </summary>
-    /// <param name="url">Domain URL</param>
-    /// <exception cref="NotImplementedException"></exception>
-    public void CheckDomainBR(string url)
+    /// <param name="domain">Domain URL</param>
+    /// <returns>Status of a .br domain</returns>
+    public static async Task<IResponseBase<DomainBr>> CheckDomainBR(string domain)
     {
-        throw new NotImplementedException();
+        string url = "registrobr/v1/" + domain;
+        return await GetAsync<DomainBr>(url, "The domain was not entered correctly!");
     }
 
     #endregion REGISTRO BR
@@ -394,22 +254,91 @@ public class BrasilAPICore
     /// <summary>
     /// Returns interest rates and some official Brazil indices
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
-    public void GetBrTaxes()
+    /// <returns> </returns>
+    public static async Task<IResponseBase<IList<BrazilTaxes>>> GetBrTaxes()
     {
-        throw new NotImplementedException();
+        string url = "taxas/v1";
+        return await GetAsync<IList<BrazilTaxes>>(url);
     }
 
     /// <summary>
     /// Search the information of a tax from its name/acronym
     /// </summary>
     /// <param name="taxName">Tax Name or Acronym</param>
-    /// <exception cref="NotImplementedException"></exception>
-    public void GetBrTax(string taxName)
+    /// <returns>Tax Information</returns>
+    public static async Task<IResponseBase<BrazilTaxes>> GetBrTax(string taxName)
     {
-        throw new NotImplementedException();
+        string url = "ncm/v1/" + taxName;
+        return await GetAsync<BrazilTaxes>(url, error404: "Tax or Index not found.");
     }
 
     #endregion Brazil Taxes
+
+    #region PRIVATE    
+
+    /// <summary>
+    /// Send the request to BrasilAPI and get the response
+    /// </summary>
+    /// <typeparam name="TModel">Response model</typeparam>
+    /// <param name="url">Url</param>
+    /// <param name="error400">Custom Error 400 mensage</param>
+    /// <param name="error404">Custom Error 404 mensage</param>
+    /// <param name="error500">Custom Error 500 mensage</param>
+    /// <returns>IResponseBase of the TModel</returns>
+    private static async Task<IResponseBase<TModel>> GetAsync<TModel>(string url, string error400 = "", string error404 = "", string error500 = "") where TModel : class
+    {
+        try
+        {
+            string finalUrl = _baseUrl + url;
+#pragma warning disable IDE0063 // Usar a instrução 'using' simples
+            using (HttpClient client = new())
+            {
+                using HttpResponseMessage response = await client.GetAsync(url);
+
+                // Special Error Check
+                if (response.StatusCode == HttpStatusCode.BadRequest)
+                    return new ResponseBase<TModel>() { Success = false, Mensage = string.IsNullOrEmpty(error400) ? "Not valid or inconsistent response." : "400 - " + error400 };
+
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                    return new ResponseBase<TModel>() { Success = false, Mensage = string.IsNullOrEmpty(error404) ? "Not valid or inconsistent response." : "404 - " + error404 };
+
+                if (response.StatusCode == HttpStatusCode.InternalServerError)
+                    return new ResponseBase<TModel>() { Success = false, Mensage = string.IsNullOrEmpty(error500) ? "Not valid or inconsistent response." : "500 - " + error500 };
+
+                response.EnsureSuccessStatusCode();
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+                return new ResponseBase<TModel>() { Success = true, Mensage = "Ok", Content = JsonSerializer.Deserialize<TModel>(responseBody) };
+            }
+#pragma warning restore IDE0063 // Usar a instrução 'using' simples
+        }
+        catch (HttpRequestException ex)
+        {
+
+#if DEBUG
+            return new ResponseBase<TModel>() { Success = false, Mensage = ex.ToString() };
+#else
+            return new ResponseBase<TModel>() { Success = false, Mensage = "Not valid or inconsistent response." };
+#endif
+        }
+    }
+
+    /// <summary>
+    /// Get name of Vehicle Type
+    /// </summary>
+    /// <param name="vehicleType">Vehicle Type</param>
+    /// <returns>Vehicle Type Name</returns>
+    private static string GetVehicleType(this VehicleTypes vehicleType)
+    {
+        return vehicleType switch
+        {
+            VehicleTypes.Car => "carros",
+            VehicleTypes.Truck => "caminhoes",
+            VehicleTypes.Bike => "motos",
+            _ => "carros"
+        };
+    }
+
+    #endregion PRIVATE
 }
 

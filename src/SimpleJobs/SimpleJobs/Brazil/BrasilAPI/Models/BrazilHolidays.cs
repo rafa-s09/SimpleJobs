@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace SimpleJobs.Brazil.BrasilAPI;
+﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
 public class BrazilHolidays
 {
