@@ -1,5 +1,8 @@
 ﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
+/// <summary>
+/// Information on Average Vehicle Price provided by FIPE (Fundação Instituto de Pesquisas Econômicas)
+/// </summary>
 public class FipeTables
 {
     /// <summary>
@@ -15,6 +18,9 @@ public class FipeTables
     public string? MonthYear { get; set; }
 }
 
+/// <summary>
+/// Information on Average Vehicle Price provided by FIPE (Fundação Instituto de Pesquisas Econômicas)
+/// </summary>
 public class FipeBrands
 {
     /// <summary>
@@ -30,6 +36,9 @@ public class FipeBrands
     public string? Value { get; set; }
 }
 
+/// <summary>
+/// Information on Average Vehicle Price provided by FIPE (Fundação Instituto de Pesquisas Econômicas)
+/// </summary>
 public class FipeVehicle
 {
     /// <summary>

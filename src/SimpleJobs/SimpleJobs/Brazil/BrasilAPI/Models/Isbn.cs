@@ -1,5 +1,8 @@
 ﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
+/// <summary>
+/// Information on books published in Brazil
+/// </summary>
 public class Isbn
 {
     /// <summary>
@@ -93,6 +96,9 @@ public class Isbn
     public string? Provider { get; set; }
 }
 
+/// <summary>
+/// Book dimensions
+/// </summary>
 public class IsbnDimensions
 {
     /// <summary>
@@ -114,6 +120,9 @@ public class IsbnDimensions
     public string? Unit { get; set; }
 }
 
+/// <summary>
+/// Book Retail Price
+/// </summary>
 public class IsbnRetailPrice
 {
     /// <summary>

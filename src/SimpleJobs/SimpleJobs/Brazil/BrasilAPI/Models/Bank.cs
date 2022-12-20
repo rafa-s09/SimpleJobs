@@ -1,5 +1,8 @@
 ﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
+/// <summary>
+/// Banking system information
+/// </summary>
 public class Bank
 {
     /// <summary>

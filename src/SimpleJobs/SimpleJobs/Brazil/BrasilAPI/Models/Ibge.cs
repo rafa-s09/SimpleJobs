@@ -1,5 +1,8 @@
 ﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
+/// <summary>
+/// Information on states From IBGE
+/// </summary>
 public class Ibge
 {
     /// <summary>
@@ -23,6 +26,9 @@ public class Ibge
     public IbgeRegions? Regions { get; set; }
 }
 
+/// <summary>
+/// Information on states From IBGE
+/// </summary>
 public class IbgeRegions
 {
     /// <summary>
@@ -44,6 +50,9 @@ public class IbgeRegions
     public string? Name { get; set; }
 }
 
+/// <summary>
+/// Information on states From IBGE
+/// </summary>
 public class IbgeCities
 {
     /// <summary>

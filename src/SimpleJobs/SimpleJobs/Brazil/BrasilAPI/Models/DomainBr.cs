@@ -1,5 +1,8 @@
 ﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
+/// <summary>
+/// Avalia um dominio no registro.br
+/// </summary>
 public class DomainBr
 {
     /// <summary>

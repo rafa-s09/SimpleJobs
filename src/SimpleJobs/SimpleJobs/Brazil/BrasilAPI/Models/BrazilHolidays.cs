@@ -1,5 +1,8 @@
 ﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
+/// <summary>
+/// Information about Brazil national holidays
+/// </summary>
 public class BrazilHolidays
 {
     /// <summary>

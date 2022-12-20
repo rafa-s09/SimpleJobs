@@ -1,5 +1,11 @@
-﻿namespace SimpleJobs.Brazil.BrasilAPI;
+﻿using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
+namespace SimpleJobs.Brazil.BrasilAPI;
+
+/// <summary>
+/// Company data by CNPJ
+/// </summary>
 public class Cnpj
 {
     /// <summary>
@@ -232,6 +238,9 @@ public class Cnpj
 
 }
 
+/// <summary>
+/// Company Cnaes
+/// </summary>
 public class Cnaes
 {
     /// <summary>
@@ -247,6 +256,9 @@ public class Cnaes
     public string? Description { get; set; }
 }
 
+/// <summary>
+/// Company Qsa
+/// </summary>
 public class Qsa
 {
 

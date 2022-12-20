@@ -1,5 +1,8 @@
 ﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
+/// <summary>
+/// Information regarding NCMs
+/// </summary>
 public class Ncm
 {
     /// <summary>

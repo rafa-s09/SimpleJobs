@@ -1,5 +1,8 @@
 ﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
+/// <summary>
+/// Interest tax and official indices
+/// </summary>
 public class BrazilTaxes
 {
     /// <summary>

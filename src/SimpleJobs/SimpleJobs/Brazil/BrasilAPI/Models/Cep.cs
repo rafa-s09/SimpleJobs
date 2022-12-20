@@ -1,5 +1,8 @@
 ﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
+/// <summary>
+/// CEP information
+/// </summary>
 public class Cep
 {
     /// <summary>
@@ -45,6 +48,9 @@ public class Cep
     public CepLocation? Location { get; set; }
 }
 
+/// <summary>
+/// CEP Location information
+/// </summary>
 public class CepLocation
 {
     /// <summary>
@@ -60,6 +66,9 @@ public class CepLocation
     public CepCoordinates? Coordinates { get; set; }
 }
 
+/// <summary>
+/// CEP Coordinates information
+/// </summary>
 public class CepCoordinates
 {
     /// <summary>

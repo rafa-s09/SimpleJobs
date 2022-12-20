@@ -1,7 +1,8 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
-namespace SimpleJobs.Brazil.BrasilAPI;
-
+/// <summary>
+/// Information related to DDDs
+/// </summary>
 public class DDD
 {
     /// <summary>
@@ -29,6 +30,9 @@ public class DDD
     public Region? Region { get; set; }
 }
 
+/// <summary>
+/// Information related to DDDs
+/// </summary>
 public class Region
 {
     /// <summary>
