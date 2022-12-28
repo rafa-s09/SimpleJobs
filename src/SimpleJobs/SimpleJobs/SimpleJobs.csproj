@@ -12,6 +12,9 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Company />
+    <Authors>Rafael Souza</Authors>
+    <Version>1.0.1b</Version>
   </PropertyGroup>
 
   <ItemGroup>
