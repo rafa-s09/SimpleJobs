@@ -5,7 +5,8 @@
 /// </summary>
 public static class Extensions
 {
-    #region Text        
+    #region Text      
+    
     /// <summary>
     /// Return text up to the first character defined, or empty
     /// </summary>
@@ -145,16 +146,18 @@ public static class Extensions
         string result = value.ClearAccentedCharacters();
         return result.ClearSymbols();
     }
+
     #endregion Text
 
-    #region Generic Conversions         
+    #region Generic Conversions        
+    
     /// <summary>
     /// Convert string to ByteArray
     /// </summary>
     /// <param name="value">String value</param>
     /// <param name="encode">Encode Format (Default is UTF8)</param>
     /// <returns>Byte Array Result</returns>
-    public static byte[] ToByteArray(this string value, TextEncode encode = TextEncode.UTF8)
+    public static byte[] StringToByteArray(this string value, TextEncode encode = TextEncode.UTF8)
     {
         return encode switch
         {
@@ -174,7 +177,7 @@ public static class Extensions
     /// <param name="value">Byte Array</param>
     /// <param name="encode">Encode Format (Default is UTF8)</param>
     /// <returns>String result</returns>
-    public static string ToString(this byte[] value, TextEncode encode = TextEncode.UTF8)
+    public static string ByteArrayToString(this byte[] value, TextEncode encode = TextEncode.UTF8)
     {
         return encode switch
         {
@@ -187,6 +190,7 @@ public static class Extensions
             _ => Encoding.UTF8.GetString(value),
         };
     }
+
     #endregion Generic Conversions   
 }
 

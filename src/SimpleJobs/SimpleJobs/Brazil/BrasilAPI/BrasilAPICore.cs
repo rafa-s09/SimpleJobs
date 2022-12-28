@@ -1,7 +1,8 @@
 ﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
 /// <summary>
-/// This class is an abstraction for accessing the <see href="https://brasilapi.com.br/">BrasilAPI</see> project
+/// This class is an abstraction for accessing the <see href="https://brasilapi.com.br/">BrasilAPI</see> project.<br/>
+/// Last Update (MM-dd-yyyy): 12-14-2022
 /// </summary>
 public static class BrasilAPICore
 {

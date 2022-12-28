@@ -1,7 +1,17 @@
 # SimpleJobs
 
-Simple Jobs é uma DLL de recursos comuns para uso de aplicação dotNet.
+Simple Jobs é um Framework de recursos comuns para uso de aplicação dotNet.
 
+<br/>
+
+## Requisitos
+
+Item | Versão
+--- | ---
+[Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore) | 7.0.1
+
+
+<br/>
 
 # MIT License
 
