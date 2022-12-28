@@ -2,6 +2,9 @@
 
 Simple Jobs é um Framework de recursos comuns para uso de aplicação dotNet.
 
+[![Nuget](https://badgen.net/nuget/v/SimpleJobs)](https://www.nuget.org/packages/SimpleJobs/)
+![MIT](https://badgen.net/badge/license/MIT/blue)
+
 <br/>
 
 ## Requisitos
