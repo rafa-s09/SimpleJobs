@@ -3,8 +3,6 @@ name: .NET 7 + Pack + Push no NuGet
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   pack-push:
