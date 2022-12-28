@@ -313,16 +313,19 @@ public static class BrasilAPICore
             }
 #pragma warning restore IDE0063 // Usar a instrução 'using' simples
         }
+#if DEBUG
         catch (HttpRequestException ex)
         {
-
-#if DEBUG
             return new ResponseBase<TModel>() { Success = false, Mensage = ex.ToString() };
-#else
-            return new ResponseBase<TModel>() { Success = false, Mensage = "Not valid or inconsistent response." };
-#endif
         }
-    }
+#else
+        catch
+        {
+            return new ResponseBase<TModel>() { Success = false, Mensage = "Not valid or inconsistent response." };
+        }
+#endif
+    
+}
 
     /// <summary>
     /// Get name of Vehicle Type
