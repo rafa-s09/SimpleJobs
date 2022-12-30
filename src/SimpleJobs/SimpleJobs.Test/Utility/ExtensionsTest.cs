@@ -35,16 +35,6 @@ namespace SimpleJobs.Test.Utility
             }
         }
 
-        [Test]
-        public void GetUntilOrEmpty_InternalError_ThrowArgumentException()
-        {
-            string text = Fixture.Create<string>();
-
-            string result = text.GetUntilOrEmpty('\u0130');
-
-            result.Should().Be(string.Empty);
-        }
-
         #endregion
     }
 }
