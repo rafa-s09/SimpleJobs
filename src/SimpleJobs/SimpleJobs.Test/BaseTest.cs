@@ -1,14 +1,11 @@
-﻿using AutoFixture;
+﻿namespace SimpleJobs.Test;
 
-namespace SimpleJobs.Test
+public abstract class BaseTest
 {
-    public abstract class BaseTest
-    {
-        protected Fixture Fixture { get; }
+    protected Fixture Fixture { get; }
 
-        public BaseTest()
-        {
-            Fixture = new Fixture();
-        }
+    public BaseTest()
+    {
+        Fixture = new Fixture();
     }
 }

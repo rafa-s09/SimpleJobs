@@ -32,20 +32,12 @@ public static class Extensions
     /// <returns>Treated text or original text</returns>
     public static string GetUntil(this string text, char stopAt)
     {
-        try
-        {
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                int charLocation = text.IndexOf(stopAt, StringComparison.Ordinal);
-                if (charLocation > 0)
-                    return text[..charLocation];
-            }
+        if (string.IsNullOrWhiteSpace(text))
             return text;
-        }
-        catch
-        {
-            return text;
-        }
+
+        int charLocation = text.IndexOf(stopAt, StringComparison.Ordinal);
+        return charLocation > 0 ? text[..charLocation] : text;
+
     }
 
     /// <summary>
@@ -56,20 +48,11 @@ public static class Extensions
     /// <returns>Treated text or empty text</returns>
     public static string GetAfterOrEmpty(this string text, char startAt)
     {
-        try
-        {
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                int charLocation = text.IndexOf(startAt, StringComparison.Ordinal);
-                if (charLocation > 0)
-                    return text[(charLocation + 1)..];
-            }
+        if (string.IsNullOrWhiteSpace(text))
             return string.Empty;
-        }
-        catch
-        {
-            return string.Empty;
-        }
+
+        int charLocation = text.IndexOf(startAt, StringComparison.Ordinal);
+        return charLocation > 0 ? text[(charLocation + 1)..] : string.Empty;
     }
 
     /// <summary>
@@ -80,20 +63,11 @@ public static class Extensions
     /// <returns>Treated text or original text</returns>
     public static string GetAfter(this string text, char startAt)
     {
-        try
-        {
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                int charLocation = text.IndexOf(startAt, StringComparison.Ordinal);
-                if (charLocation > 0)
-                    return text[(charLocation + 1)..];
-            }
+        if (string.IsNullOrWhiteSpace(text))
             return text;
-        }
-        catch
-        {
-            return text;
-        }
+
+        int charLocation = text.IndexOf(startAt, StringComparison.Ordinal);
+                return charLocation > 0 ? text[(charLocation + 1)..] : text;
     }
 
     /// <summary>

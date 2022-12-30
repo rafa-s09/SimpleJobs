@@ -22,4 +22,8 @@
     <ProjectReference Include="..\SimpleJobs\SimpleJobs.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Brazil\" />
+  </ItemGroup>
+
 </Project>
