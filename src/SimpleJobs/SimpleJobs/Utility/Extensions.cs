@@ -17,20 +17,11 @@ public static class Extensions
     /// <returns>Treated text or empty text</returns>
     public static string GetUntilOrEmpty(this string text, char stopAt)
     {
-        try
-        {
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                int charLocation = text.IndexOf(stopAt, StringComparison.Ordinal);
-                if (charLocation > 0)
-                    return text[..charLocation];
-            }
+        if (string.IsNullOrWhiteSpace(text))
             return string.Empty;
-        }
-        catch
-        {
-            return string.Empty;
-        }
+
+        int charLocation = text.IndexOf(stopAt, StringComparison.Ordinal);
+        return charLocation > 0 ? text[..charLocation] : string.Empty;
     }
 
     /// <summary>
