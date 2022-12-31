@@ -1,4 +1,4 @@
-﻿namespace SimpleJobs.Entity;
+﻿namespace SimpleJobs.Repository;
 
 /// <summary>
 /// Adds an abstraction layer at the top of the query layer and helps eliminate duplicate logic in the implementation of your query code to the entity model
@@ -18,7 +18,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// Batch the new data into the table
     /// </summary>
     /// <param name="entities">List of entities</param>
-    void BatchInsert(IList<TEntity> entities);
+    void BatchInsert(IEnumerable<TEntity> entities);
 
     /// <summary>
     /// Updates the data in the table
@@ -30,7 +30,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// Updates the list of data in the table
     /// </summary>
     /// <param name="entities">List of entities</param>
-    void BatchUpdate(IList<TEntity> entities);
+    void BatchUpdate(IEnumerable<TEntity> entities);
 
     /// <summary>
     /// Removes data from the table by id
@@ -51,7 +51,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// </summary>
     /// <param name="entities">List of entities</param>
     /// <returns>List of entities</returns>
-    void BatchDelete(IList<TEntity> entities);
+    void BatchDelete(IEnumerable<TEntity> entities);
 
     /// <summary>
     /// Performs the data search in the table
@@ -191,7 +191,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// Batch the new data into the table
     /// </summary>
     /// <param name="entities">List of entities</param>
-    Task BatchInsertAsync(IList<TEntity> entities);
+    Task BatchInsertAsync(IEnumerable<TEntity> entities);
 
     /// <summary>
     /// Updates the data in the table
@@ -203,7 +203,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// Updates the list of data in the table
     /// </summary>
     /// <param name="entities">List of entities</param>
-    Task BatchUpdateAsync(IList<TEntity> entities);
+    Task BatchUpdateAsync(IEnumerable<TEntity> entities);
 
     /// <summary>
     /// Removes data from the table by id
@@ -224,7 +224,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// </summary>
     /// <param name="entities">List of entities</param>
     /// <returns>List of entities</returns>
-    Task BatchDeleteAsync(IList<TEntity> entities);
+    Task BatchDeleteAsync(IEnumerable<TEntity> entities);
 
     /// <summary>
     /// Performs the data search in the table
