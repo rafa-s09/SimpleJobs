@@ -1,11 +1,8 @@
-﻿using SimpleJobs.Repository;
+﻿namespace SimpleJobs.UnitaryTests.Repository.Setup;
 
-namespace SimpleJobs.UnitaryTests.Repository.Setup
+public class CourseRepository : RepositoryBase<CourseEntity>
 {
-    public class CourseRepository : RepositoryBase<CourseEntity>
+    public CourseRepository(DbContextInMemory dbContext) : base(dbContext)
     {
-        public CourseRepository(DbContextInMemory dbContext) : base(dbContext)
-        {
-        }
     }
 }

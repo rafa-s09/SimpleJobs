@@ -1,4 +1,4 @@
-name: .NET 7 + Pack + Push no NuGet
+name: Pack and Push to NuGet
 
 on:
   push:
@@ -7,23 +7,34 @@ on:
 jobs:
   pack-push:
     env:
+      CAMINHO_SOLUCAO: ./src/SimpleJobs/SimpleJobs.sln
       CAMINHO_PROJETO: ./src/SimpleJobs/SimpleJobs/SimpleJobs.csproj
+      CAMINHO_PROJETO_TESTE: ./src/SimpleJobs/SimpleJobs.UnitaryTests/SimpleJobs.UnitaryTests.csproj
 
     runs-on: ubuntu-latest
+    environment: Production
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup .NET 7
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.101
 
-    - name: Geração do package
-      run: dotnet pack ${{ env.CAMINHO_PROJETO }} -c Release -o out
+    - name: Dotnet version
+        run: dotnet --version
 
-    - name: Push no NuGet
+    - name: Install dependencies
+      run: dotnet restore ${{ env.CAMINHO_SOLUCAO }}
+
+    - name: Build and Pack
+      run: dotnet pack ${{ env.CAMINHO_PROJETO }} -c Release -o out
+      
+    - name: Test
+      run: dotnet test ${{ env.CAMINHO_PROJETO_TESTE }} --no-restore --verbosity normal
+
+    - name: Push to NuGet
       run: |
         cd out
         PACKAGE=$(find -iname \SimpleJobs*.nupkg* -type f | head -1)
         dotnet nuget push ${PACKAGE} --api-key ${{ secrets.NUGET_API_KEY }} --source ${{ secrets.NUGET_SERVER }} --skip-duplicate
-

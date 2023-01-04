@@ -2,6 +2,7 @@
 
 /// <summary>
 /// Adds an abstraction layer at the top of the query layer and helps eliminate duplicate logic in the implementation of your query code to the entity model
+/// <br /> <i>NOTE: All functions commit automatically</i>
 /// </summary>
 /// <typeparam name="TEntity">Target Entity</typeparam>
 public abstract class RepositoryBase<TEntity> : IRepository<TEntity>, IDisposable where TEntity : class

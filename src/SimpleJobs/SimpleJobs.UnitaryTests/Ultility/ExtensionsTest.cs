@@ -1,13 +1,22 @@
-﻿namespace SimpleJobs.Test.Utility;
+﻿namespace SimpleJobs.UnitaryTests.Utility;
 
 public class ExtensionsTest : BaseTest
 {
-    #region GetUntilOrEmpty
+    private string GenerateStringWithAllCharacters()
+    {
+        StringBuilder text = new();
 
-    [TestCase(null)]
-    [TestCase("")]
-    [TestCase(" ")]
-    [TestCase("bbbbb")]
+        for (int i = 33; i <= 254; i++)
+            text.Append((char)i);
+
+        return text.ToString();
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    [InlineData("bbbbb")]
     public void GetUntilOrEmpty_TextIsNullOrEmptyOrCharacterNotFound_ReturnStringEmpty(string text)
     {
         string result = text.GetUntilOrEmpty('5');
@@ -15,21 +24,19 @@ public class ExtensionsTest : BaseTest
         result.Should().Be(string.Empty);
     }
 
-    [Test]
+    [Fact]
     public void GetUntilOrEmpty_ValidText_ReturnSubString()
     {
-        string text = Fixture.Create<string>();
-        
+        string text = GenerateStringWithAllCharacters();
+
         for (int pos = 0; pos < text.Length; pos++)
         {
             char character = text[pos];
             string expectedText = text[..text.IndexOf(character, StringComparison.Ordinal)];
-            
+
             string result = text.GetUntilOrEmpty(text[pos]);
 
             result.Should().Be(expectedText);
         }
     }
-
-    #endregion
 }
