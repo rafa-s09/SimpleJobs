@@ -21,9 +21,6 @@ jobs:
       with:
         dotnet-version: 7.0.101
 
-    - name: Dotnet version
-        run: dotnet --version
-
     - name: Install dependencies
       run: dotnet restore ${{ env.CAMINHO_SOLUCAO }}
 

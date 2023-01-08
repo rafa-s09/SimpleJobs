@@ -12,7 +12,7 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>, IDisposabl
     #region Constructor
 
     /// <summary>
-    /// DbContext represents a session with the database which can be used to query and save instances of your entities to a database
+    /// [Internal] DbContext represents a session with the database which can be used to query and save instances of your entities to a database
     /// </summary>
     private readonly DbContext? _context;
 
