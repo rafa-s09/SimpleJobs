@@ -21,14 +21,14 @@ jobs:
       with:
         dotnet-version: 7.0.101
 
-    - name: Install dependencies
+    - name: Restore Defaults
       run: dotnet restore ${{ env.CAMINHO_SOLUCAO }}
 
-    - name: Build and Pack
+    - name: Geração do package
       run: dotnet pack ${{ env.CAMINHO_PROJETO }} -c Release -o out
       
-    - name: Test
-      run: dotnet test ${{ env.CAMINHO_PROJETO_TESTE }} --no-restore --verbosity normal
+    - name: Teste do package
+      run: dotnet test ${{ env.CAMINHO_PROJETO_TESTE }} -c Release -o out normal
 
     - name: Push to NuGet
       run: |
