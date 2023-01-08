@@ -1,4 +1,6 @@
-﻿namespace SimpleJobs.UnitaryTests.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace SimpleJobs.UnitaryTests.Repository;
 
 
 public class RepositoryTest : BaseTest, IDisposable
@@ -104,36 +106,67 @@ public class RepositoryTest : BaseTest, IDisposable
     public void BatchUpdate_UpdateManyEntities_NotThrowException()
     {
         IEnumerable<CourseEntity> entities = Fixture.Build<CourseEntity>().Without(a => a.Id).CreateMany();
+        _repository.BatchInsert(entities);
+        List<CourseEntity> TempEntities = new();
 
+        foreach (CourseEntity course in entities)
+        {
+            course.Name = "bbbb";
+            TempEntities.Add(course);
+        }
 
-
-        Action act = () => _repository.BatchInsert(entities);
-
-
+        Action act = () => _repository.BatchUpdate(TempEntities);
         act.Should().NotThrow();
     }
 
     [Fact]
-    public void BatchUpdate_UpdateManyEntitiesWithAnExistingOne_ThrowException()
+    public void DeleteById_DeleteEntity_NotThrowException()
     {
-        CourseEntity existingEntity = Fixture.Build<CourseEntity>().Without(a => a.Id).Create();
-        CourseEntity entityNotInserted = Fixture.Build<CourseEntity>().Without(a => a.Id).Create();
-        IEnumerable<CourseEntity> entities = new List<CourseEntity>
-        {
-            Fixture.Build<CourseEntity>().Without(a => a.Id).Create(),
-            existingEntity,
-            entityNotInserted
-        };
-        _repository.Insert(existingEntity);
+        CourseEntity entity = Fixture.Build<CourseEntity>().Without(a => a.Id).Create();
+        _repository.Insert(entity);
 
-        Action act = () => _repository.BatchInsert(entities);
+        Action act = () => _repository.DeleteById(entity.Id);
+        act.Should().NotThrow();
+    }
 
-        var ex = act.Should().ThrowExactly<ArgumentException>();
-        ex.WithMessage($"An item with the same key has already been added. Key: {existingEntity.Id}");
+    [Fact]
+    public void DeleteById_DeleteEntity_ThrowException()
+    {
+        CourseEntity entity = Fixture.Build<CourseEntity>().Without(a => a.Id).Create();
+        _repository.Insert(entity);
 
-        IEnumerable<CourseEntity> insertedEntities = _repository.GetAll();
-        insertedEntities.Should().HaveCount(2);
-        insertedEntities.Should().NotContain(entityNotInserted);
+        Action act = () => _repository.DeleteById("0");
+        act.Should().ThrowExactly<ArgumentException>();
+    }
+
+    [Fact]
+    public void Delete_DeleteEntity_NotThrowException()
+    {
+        CourseEntity entity = Fixture.Build<CourseEntity>().Without(a => a.Id).Create();
+        _repository.Insert(entity);
+
+        Action act = () => _repository.Delete(entity);
+        act.Should().NotThrow();
+    }
+
+    [Fact]
+    public void Delete_DeleteEntity_ThrowException()
+    {
+        CourseEntity entity = Fixture.Build<CourseEntity>().Without(a => a.Id).Create();
+        _repository.Insert(entity);
+
+        Action act = () => _repository.Delete(new CourseEntity() { Id = new Guid(), Name = "bbbb"});
+        act.Should().ThrowExactly<DbUpdateConcurrencyException>();
+    }
+
+    [Fact]
+    public void BatchDelete_DeleteEntity_NotThrowException()
+    {
+        IEnumerable<CourseEntity> entities = Fixture.Build<CourseEntity>().Without(a => a.Id).CreateMany();
+        _repository.BatchInsert(entities);       
+
+        Action act = () => _repository.BatchDelete(entities);
+        act.Should().NotThrow();
     }
 
     #endregion Sync
@@ -142,8 +175,22 @@ public class RepositoryTest : BaseTest, IDisposable
 
     #endregion ASync
 
+    #region Disposable
+
+    ~RepositoryTest() => Dispose();
+
     public void Dispose()
     {
-        _repository.Dispose();
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
+
+    protected virtual void Dispose(bool disposing = false)
+    {
+        /// Managed objects
+        if (disposing)
+            _repository.Dispose();
+    }
+
+    #endregion Disposable
 }

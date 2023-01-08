@@ -2,7 +2,7 @@
 
 public class ExtensionsTest : BaseTest
 {
-    private string GenerateStringWithAllCharacters()
+    private static string GenerateStringWithAllCharacters()
     {
         StringBuilder text = new();
 
