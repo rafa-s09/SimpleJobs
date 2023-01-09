@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SimpleJobs.Utility;
 
@@ -77,6 +78,9 @@ public static class Extensions
     /// <returns>Non-accented text</returns>
     public static string ClearAccentedCharacters(this string value)
     {
+        if(value == null)
+            throw new ArgumentNullException(nameof(value));
+
         if (value.Length < 1)
             return value;
 
@@ -98,14 +102,17 @@ public static class Extensions
     /// <returns>Clear text</returns>
     public static string ClearSymbols(this string value, bool useSpace = false)
     {
+        if (value == null)
+            throw new ArgumentNullException(nameof(value));
+
         if (value.Length < 1)
             return value;
 
 #pragma warning disable SYSLIB1045 // Converter em 'GeneratedRegexAttribute'.
         if (useSpace)
-            return Regex.Replace(value, @"[^0-9A-Za-za-çÇáéíóúýÁÉÍÓÚÝàèìòùÀÈÌÒÙãõñäëïöüÿÄËÏÖÜÃÕÑâêîôûÂÊÎÔÛ ,]", " ");
+            return Regex.Replace(value, @"[^0-9A-Za-za-çÇáéíóúýÁÉÍÓÚÝàèìòùÀÈÌÒÙãõñäëïöüÿÄËÏÖÜÃÕÑâêîôûÂÊÎÔÛ ,]", " ").Replace("}", " ").Replace("{", " ").Replace("|", " ").Replace(",", " ").Replace("~", " ");
         else
-            return Regex.Replace(value, @"[^0-9A-Za-za-çÇáéíóúýÁÉÍÓÚÝàèìòùÀÈÌÒÙãõñäëïöüÿÄËÏÖÜÃÕÑâêîôûÂÊÎÔÛ ,]", "");
+            return Regex.Replace(value, @"[^0-9A-Za-za-çÇáéíóúýÁÉÍÓÚÝàèìòùÀÈÌÒÙãõñäëïöüÿÄËÏÖÜÃÕÑâêîôûÂÊÎÔÛ ,]", "").Replace("}", "").Replace("{", "").Replace("|", "").Replace(",", "").Replace("~", "");
 #pragma warning restore SYSLIB1045 // Converter em 'GeneratedRegexAttribute'.
     }
 
@@ -117,6 +124,9 @@ public static class Extensions
     /// <returns>Clear text</returns>
     public static string ClearSpecialCharacters(this string value, bool useSpace = false)
     {
+        if (value == null)
+            throw new ArgumentNullException(nameof(value));
+
         if (value.Length < 1)
             return value;
 
@@ -136,6 +146,9 @@ public static class Extensions
     /// <returns>Byte Array Result</returns>
     public static byte[] StringToByteArray(this string value, TextEncode encode = TextEncode.UTF8)
     {
+        if (value == null)
+            throw new ArgumentNullException(nameof(value));
+
         return encode switch
         {
             TextEncode.ASCII => Encoding.ASCII.GetBytes(value),
@@ -156,6 +169,9 @@ public static class Extensions
     /// <returns>String result</returns>
     public static string ByteArrayToString(this byte[] value, TextEncode encode = TextEncode.UTF8)
     {
+        if (value == null || value.Length < 1)
+            throw new ArgumentNullException(nameof(value));
+
         return encode switch
         {
             TextEncode.ASCII => Encoding.ASCII.GetString(value),
