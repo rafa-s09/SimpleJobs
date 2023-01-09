@@ -1,6 +1,6 @@
 ﻿namespace SimpleJobs.UnitaryTests.Ultility;
 
-public class ListPaginationTests
+public class ListPaginationTests : BaseTest
 {
     [Fact]
     public void PageCount_CorrectlyCalculatesNumberOfPages()

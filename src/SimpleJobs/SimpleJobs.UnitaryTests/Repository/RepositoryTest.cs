@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace SimpleJobs.UnitaryTests.Repository;
-
+﻿namespace SimpleJobs.UnitaryTests.Repository;
 
 public class RepositoryTest : BaseTest, IDisposable
 {

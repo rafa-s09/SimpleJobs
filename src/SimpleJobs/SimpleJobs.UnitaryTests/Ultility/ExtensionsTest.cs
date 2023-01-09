@@ -1,6 +1,4 @@
-﻿using SimpleJobs.Utility;
-
-namespace SimpleJobs.UnitaryTests.Utility;
+﻿namespace SimpleJobs.UnitaryTests.Utility;
 
 public class ExtensionsTest : BaseTest
 {

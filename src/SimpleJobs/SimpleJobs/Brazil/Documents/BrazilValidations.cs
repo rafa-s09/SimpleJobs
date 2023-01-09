@@ -1,4 +1,6 @@
-﻿namespace SimpleJobs.Brazil.Documents;
+﻿using SimpleJobs.Brazil.BrasilAPI;
+
+namespace SimpleJobs.Brazil.Documents;
 
 /// <summary>
 /// Contains validation functions for Brazilian documents. <br/>
@@ -14,6 +16,10 @@ public static class BrazilValidations
     /// <returns>BrazilValidationResult [Success if it valid]</returns>
     public static BrazilValidationResult CheckForCPF(string cpf)
     {
+        // Is null is failed
+        if (cpf == null)
+            return BrazilValidationResult.Failed;
+
         int[] firstDigit = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
         int[] secondDigit = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
         string temp, digit;
@@ -64,6 +70,10 @@ public static class BrazilValidations
     /// <returns>BrazilValidationResult [Success if it valid]</returns>
     public static BrazilValidationResult CheckForCNPJ(string cnpj) 
     {
+        // Is null is failed
+        if (cnpj == null)
+            return BrazilValidationResult.Failed;
+
         int[] firstDigit = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
         int[] secondDigit = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
         int sum, rest;
@@ -114,6 +124,10 @@ public static class BrazilValidations
     /// <returns>BrazilValidationResult [Success if it valid]</returns>
     public static BrazilValidationResult CheckForPIS(string pis)
     {
+        // Is null is failed
+        if (pis == null)
+            return BrazilValidationResult.Failed;
+
         int[] validDigit = new int[10] { 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
         int sum, rest;
 

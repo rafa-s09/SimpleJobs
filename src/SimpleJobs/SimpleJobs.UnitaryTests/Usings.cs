@@ -20,6 +20,8 @@ global using Microsoft.EntityFrameworkCore;
 
 global using SimpleJobs.Utility;
 global using SimpleJobs.Repository;
+global using SimpleJobs.Brazil.Documents;
+global using SimpleJobs.Brazil.BrasilAPI;
 global using SimpleJobs.UnitaryTests.Repository.Setup;
 
 #endregion SimpleJobs
