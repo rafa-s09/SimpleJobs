@@ -2,7 +2,6 @@
 
 public class ExtensionsTest : BaseTest
 {
-
     [Theory]
     [InlineData("abcdef", 'c', "ab")]
     [InlineData("abcdef", 'x', "")]

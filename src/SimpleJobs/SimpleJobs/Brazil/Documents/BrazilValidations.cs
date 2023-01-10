@@ -1,6 +1,4 @@
-﻿using SimpleJobs.Brazil.BrasilAPI;
-
-namespace SimpleJobs.Brazil.Documents;
+﻿namespace SimpleJobs.Brazil.Documents;
 
 /// <summary>
 /// Contains validation functions for Brazilian documents. <br/>

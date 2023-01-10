@@ -9,24 +9,24 @@ public class Bank
     /// Field Name: ispb
     /// </summary>
     [JsonPropertyName("ispb")]
-    public string ISPB { get; set; } = string.Empty;
+    public string? ISPB { get; set; }
 
     /// <summary>
     /// Field Name: name
     /// </summary>
     [JsonPropertyName("name")]
-    public string Name { get; set; } = string.Empty;
+    public string? Name { get; set; }
 
     /// <summary>
     /// Field Name: code
     /// </summary>
     [JsonPropertyName("code")]
-    public int Code { get; set; }
+    public int? Code { get; set; }
 
     /// <summary>
     /// Field Name: fullName
     /// </summary>
     [JsonPropertyName("fullName")]
-    public string FullName { get; set; } = string.Empty;
+    public string? FullName { get; set; }
 
 }

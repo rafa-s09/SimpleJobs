@@ -47,5 +47,4 @@ public class BrazilValidationsTest : BaseTest
         BrazilValidationResult result = BrazilValidations.CheckForPIS(pis);
         result.Should().Be(expectedResult);
     }
-
 }
