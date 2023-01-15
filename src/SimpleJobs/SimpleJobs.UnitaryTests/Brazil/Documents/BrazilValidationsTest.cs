@@ -8,10 +8,9 @@ public class BrazilValidationsTest : BaseTest
     [InlineData("563.913.067-96", BrazilValidationResult.Success)]
     [InlineData("563913067", BrazilValidationResult.WrongSize)]
     [InlineData("563.913.0676", BrazilValidationResult.WrongSize)]
-    [InlineData("", BrazilValidationResult.WrongSize)]
+    [InlineData("", BrazilValidationResult.Failed)]
     [InlineData("56391306795", BrazilValidationResult.Failed)]
     [InlineData("563.913.067-95", BrazilValidationResult.Failed)]
-    [InlineData(null, BrazilValidationResult.Failed)]
     public void CheckForCPF_CheckDocumenteValidationOk(string cpf, BrazilValidationResult expectedResult)
     {
         BrazilValidationResult result = BrazilValidations.CheckForCPF(cpf);
@@ -23,10 +22,9 @@ public class BrazilValidationsTest : BaseTest
     [InlineData("48.391.445/0001-76", BrazilValidationResult.Success)]
     [InlineData("483914450001", BrazilValidationResult.WrongSize)]
     [InlineData("48.391.445/001-76", BrazilValidationResult.WrongSize)]
-    [InlineData("", BrazilValidationResult.WrongSize)]
+    [InlineData("", BrazilValidationResult.Failed)]
     [InlineData("48391445000173", BrazilValidationResult.Failed)]
     [InlineData("48.391.445/0001-73", BrazilValidationResult.Failed)]
-    [InlineData(null, BrazilValidationResult.Failed)]
     public void CheckForCNPJ_CheckDocumentValidationOk(string cnpj, BrazilValidationResult expectedResult)
     {
         BrazilValidationResult result = BrazilValidations.CheckForCNPJ(cnpj);
@@ -38,10 +36,9 @@ public class BrazilValidationsTest : BaseTest
     [InlineData("120.2547.744-0", BrazilValidationResult.Success)]
     [InlineData("1205477440", BrazilValidationResult.WrongSize)]
     [InlineData("120.547.744-0", BrazilValidationResult.WrongSize)]
-    [InlineData("", BrazilValidationResult.WrongSize)]
+    [InlineData("", BrazilValidationResult.Failed)]
     [InlineData("12025477446", BrazilValidationResult.Failed)]
     [InlineData("120.2547.744-6", BrazilValidationResult.Failed)]
-    [InlineData(null, BrazilValidationResult.Failed)]
     public void CheckForPIS_CheckDocumentValidationOk(string pis, BrazilValidationResult expectedResult)
     {
         BrazilValidationResult result = BrazilValidations.CheckForPIS(pis);

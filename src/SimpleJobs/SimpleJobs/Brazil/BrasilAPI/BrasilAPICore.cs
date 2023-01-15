@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata;
-
-namespace SimpleJobs.Brazil.BrasilAPI;
+﻿namespace SimpleJobs.Brazil.BrasilAPI;
 
 /// <summary>
 /// This class is an abstraction for accessing the <see href="https://brasilapi.com.br/">BrasilAPI</see> project.<br/>
@@ -17,6 +15,9 @@ public static class BrasilAPICore
     /// <returns>Bank</returns>
     public static async Task<IResponseBase<Bank>> GetBank(string code)
     {
+        if (string.IsNullOrEmpty(code.Replace(" ","")))
+            return new ResponseBase<Bank>() { Success = false, Mensage = "The entered value cannot be null or empty." };
+
         string url = "banks/v1/" + code;
         return await GetAsync<Bank>(url, error404: "Bank code not found.");
     }
@@ -44,6 +45,12 @@ public static class BrasilAPICore
     [Obsolete("This method is obsolete. Call GetCepV2 instead.", false)]
     public static async Task<IResponseBase<Cep>> GetCep(string cep)
     {
+        if (string.IsNullOrEmpty(cep.Replace(" ", "")))
+            return new ResponseBase<Cep>() { Success = false, Mensage = "The entered value cannot be null or empty." };
+
+        if (cep.ClearSpecialCharacters().Length != 8)
+            return new ResponseBase<Cep>() { Success = false, Mensage = "Invalid CEP length, expected 8 digits" };
+
         string url = "cep/v1/" + cep.ClearSpecialCharacters();
         return await GetAsync<Cep>(url, error404: "All CEP services returned an error.");
     }
@@ -55,6 +62,12 @@ public static class BrasilAPICore
     /// <returns>Full Adress</returns>
     public static async Task<IResponseBase<Cep>> GetCepV2(string cep)
     {
+        if (string.IsNullOrEmpty(cep.Replace(" ", "")))
+            return new ResponseBase<Cep>() { Success = false, Mensage = "The entered value cannot be null or empty." };
+
+        if (cep.ClearSpecialCharacters().Length != 8)
+            return new ResponseBase<Cep>() { Success = false, Mensage = "Invalid CEP length, expected 8 digits" };
+
         string url = "cep/v2/" + cep.ClearSpecialCharacters();
         return await GetAsync<Cep>(url, error404: "All CEP services returned an error.");
     }
@@ -70,6 +83,9 @@ public static class BrasilAPICore
     /// <returns>CNPJ Information</returns>
     public static async Task<IResponseBase<Cnpj>> GetCNPJInfo(string cnpj)
     {
+        if (string.IsNullOrEmpty(cnpj.Replace(" ", "")))
+            return new ResponseBase<Cnpj>() { Success = false, Mensage = "The entered value cannot be null or empty." };
+
         if (BrazilValidations.CheckForCNPJ(cnpj) != BrazilValidationResult.Success)
             return new ResponseBase<Cnpj>() { Success = false, Mensage = "Wrong CNPJ Number" };
 
@@ -129,7 +145,10 @@ public static class BrasilAPICore
     /// <returns>Price information of the vehicle according to the fipe table.</returns>
     public static async Task<IResponseBase<IEnumerable<FipeVehicle>>> GetFIPEPrice(string fipeCode)
     {
-        if(string.IsNullOrEmpty(fipeCode.ClearSymbols()))
+        if (string.IsNullOrEmpty(fipeCode.Replace(" ", "")))
+            return new ResponseBase<IEnumerable<FipeVehicle>>() { Success = false, Mensage = "The entered value cannot be null or empty." };
+
+        if (string.IsNullOrEmpty(fipeCode.ClearSymbols()))
             return new ResponseBase<IEnumerable<FipeVehicle>>() { Success = false, Mensage = "Invalid FIPE code." };
 
         string url = "fipe/preco/v1/" + fipeCode.ClearSymbols();
@@ -157,7 +176,13 @@ public static class BrasilAPICore
     /// <returns>List of IBGE Code Federative Unit</returns>
     public static async Task<IResponseBase<IEnumerable<IbgeCities>>> GetIBGECodes(string uf)
     {
-        string url = "ibge/municipios/v1/" + uf + "?providers=dados-abertos-br,gov,wikipedia";
+        if (string.IsNullOrEmpty(uf.Replace(" ", "")))
+            return new ResponseBase<IEnumerable<IbgeCities>>() { Success = false, Mensage = "The entered value cannot be null or empty." };
+
+        if (uf.Length != 2)
+            return new ResponseBase<IEnumerable<IbgeCities>>() { Success = false, Mensage = "Invalid uf length, expected only 2 characters." };
+
+        string url = "ibge/municipios/v1/" + uf.ToLower() + "?providers=dados-abertos-br,gov,wikipedia";
         return await GetAsync<IEnumerable<IbgeCities>>(url, error404: "UF not found");
     }
 
@@ -178,6 +203,9 @@ public static class BrasilAPICore
     /// <returns>Information of a state in Brazil.</returns>
     public static async Task<IResponseBase<Ibge>> GetIBGE(string ibgeCode)
     {
+        if (string.IsNullOrEmpty(ibgeCode.Replace(" ", "")))
+            return new ResponseBase<Ibge>() { Success = false, Mensage = "The entered value cannot be null or empty." };
+
         string url = "ibge/uf/v1/" + ibgeCode;
         return await GetAsync<Ibge>(url, error404: "IBGE Code not found.");
     }
@@ -193,6 +221,9 @@ public static class BrasilAPICore
     /// <returns>Information about the book from the ISBN</returns>
     public static async Task<IResponseBase<Isbn>> GetISBNInfo(string isbn)
     {
+        if (string.IsNullOrEmpty(isbn.Replace(" ", "")))
+            return new ResponseBase<Isbn>() { Success = false, Mensage = "The entered value cannot be null or empty." };
+
         string url = "isbn/v1/" + isbn;
         return await GetAsync<Isbn>(url, "Invalid ISBN", "ISBN not found", "All ISBN services returned an error.");
     }
@@ -218,7 +249,10 @@ public static class BrasilAPICore
     /// <returns>List of NCMs based on a code or description.</returns>
     public static async Task<IResponseBase<IEnumerable<Ncm>>> SearchNCM(string ncmCode)
     {
-        string url = "ncm/v1?search=" + ncmCode;
+        if (string.IsNullOrEmpty(ncmCode.Replace(" ", "")))
+            return new ResponseBase<IEnumerable<Ncm>> () { Success = false, Mensage = "The entered value cannot be null or empty." };
+
+        string url = "ncm/v1?search=" + ncmCode.ClearSymbols();
         return await GetAsync<IEnumerable<Ncm>>(url);
     }
 
@@ -229,7 +263,10 @@ public static class BrasilAPICore
     /// <returns>Information of an NCM.</returns>
     public static async Task<IResponseBase<Ncm>> GetNCM(string ncmCode)
     {
-        string url = "ncm/v1/" + ncmCode;
+        if (string.IsNullOrEmpty(ncmCode.Replace(" ", "")))
+            return new ResponseBase<Ncm>() { Success = false, Mensage = "The entered value cannot be null or empty." };
+
+        string url = "ncm/v1/" + ncmCode.ClearSymbols(); 
         return await GetAsync<Ncm>(url, error404: "NCM code not found.");
     }
 
@@ -238,12 +275,15 @@ public static class BrasilAPICore
     #region REGISTRO BR
 
     /// <summary>
-    /// Evaluates the status of a .br domain, Registro BR
+    /// Evaluates the status of a .br domain, according Registro BR
     /// </summary>
     /// <param name="domain">Domain URL</param>
     /// <returns>Status of a .br domain</returns>
     public static async Task<IResponseBase<DomainBr>> CheckDomainBR(string domain)
     {
+        if (string.IsNullOrEmpty(domain.Replace(" ", "")))
+            return new ResponseBase<DomainBr>() { Success = false, Mensage = "The entered value cannot be null or empty." };
+
         string url = "registrobr/v1/" + domain;
         return await GetAsync<DomainBr>(url, "The domain was not entered correctly!");
     }
@@ -269,7 +309,10 @@ public static class BrasilAPICore
     /// <returns>Tax Information</returns>
     public static async Task<IResponseBase<BrazilTaxes>> GetBrTax(string taxName)
     {
-        string url = "ncm/v1/" + taxName;
+        if (string.IsNullOrEmpty(taxName.Replace(" ", "")))
+            return new ResponseBase<BrazilTaxes>() { Success = false, Mensage = "The entered value cannot be null or empty." };
+
+        string url = "taxas/v1/" + taxName;
         return await GetAsync<BrazilTaxes>(url, error404: "Tax or Index not found.");
     }
 
