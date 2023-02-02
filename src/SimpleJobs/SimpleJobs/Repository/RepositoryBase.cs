@@ -49,7 +49,7 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>, IDisposabl
     /// <param name="disposing">Dispose the stored value [Default is false]</param>
     protected virtual void Dispose(bool disposing = false)
     {
-        /// Managed objects
+        // Managed objects
         if (disposing)
             _context.Dispose();
     }
