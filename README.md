@@ -16,6 +16,12 @@ Pacote | Versão
 
 <br/>
 
+## Documentation
+
+> Work in Progress
+
+<br/>
+
 # MIT License
 
 Copyright (c) 2022 Rafael Souza
