@@ -1,4 +1,4 @@
-﻿namespace SimpleJobs.Entity;
+﻿namespace SimpleJobs.Repository;
 
 /// <summary>
 /// Adds an abstraction layer at the top of the query layer and helps eliminate duplicate logic in the implementation of your query code to the entity model
@@ -18,7 +18,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// Batch the new data into the table
     /// </summary>
     /// <param name="entities">List of entities</param>
-    void BatchInsert(IList<TEntity> entities);
+    void BatchInsert(IEnumerable<TEntity> entities);
 
     /// <summary>
     /// Updates the data in the table
@@ -30,7 +30,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// Updates the list of data in the table
     /// </summary>
     /// <param name="entities">List of entities</param>
-    void BatchUpdate(IList<TEntity> entities);
+    void BatchUpdate(IEnumerable<TEntity> entities);
 
     /// <summary>
     /// Removes data from the table by id
@@ -51,7 +51,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// </summary>
     /// <param name="entities">List of entities</param>
     /// <returns>List of entities</returns>
-    void BatchDelete(IList<TEntity> entities);
+    void BatchDelete(IEnumerable<TEntity> entities);
 
     /// <summary>
     /// Performs the data search in the table
@@ -66,24 +66,6 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// <param name="expression">Lambda expression</param>
     /// <returns>List of entities as IQueryable</returns>
     IQueryable<TEntity> QueryableSearch(Expression<Func<TEntity, bool>> expression);
-
-    /// <summary>
-    /// Performs the data search in the table and order the result
-    /// </summary>
-    /// <param name="expression">Lambda expression</param>
-    /// <param name="sortExpression">Lambda expression</param>
-    /// <param name="ascendant">Ascending order if true [default is true]</param>
-    /// <returns>List of entities as IEnumerable</returns>
-    IEnumerable<TEntity> SortedSearch(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, bool>> sortExpression, bool ascendant = true);
-
-    /// <summary>
-    /// Performs the data search in the table and order the result
-    /// </summary>
-    /// <param name="expression">Lambda expression</param>
-    /// <param name="sortExpression">Lambda expression</param>
-    /// <param name="ascendant">Ascending order if true [default is true]</param>
-    /// <returns>List of entities as IQueryable</returns>
-    IQueryable<TEntity> SortedQueryableSearch(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, bool>> sortExpression, bool ascendant = true);
 
     /// <summary>
     /// Returns all data from the table
@@ -191,7 +173,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// Batch the new data into the table
     /// </summary>
     /// <param name="entities">List of entities</param>
-    Task BatchInsertAsync(IList<TEntity> entities);
+    Task BatchInsertAsync(IEnumerable<TEntity> entities);
 
     /// <summary>
     /// Updates the data in the table
@@ -203,7 +185,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// Updates the list of data in the table
     /// </summary>
     /// <param name="entities">List of entities</param>
-    Task BatchUpdateAsync(IList<TEntity> entities);
+    Task BatchUpdateAsync(IEnumerable<TEntity> entities);
 
     /// <summary>
     /// Removes data from the table by id
@@ -224,7 +206,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// </summary>
     /// <param name="entities">List of entities</param>
     /// <returns>List of entities</returns>
-    Task BatchDeleteAsync(IList<TEntity> entities);
+    Task BatchDeleteAsync(IEnumerable<TEntity> entities);
 
     /// <summary>
     /// Performs the data search in the table
@@ -239,24 +221,6 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// <param name="expression">Lambda expression</param>
     /// <returns>List of entities as IQueryable</returns>
     Task<IQueryable<TEntity>> QueryableSearchAsync(Expression<Func<TEntity, bool>> expression);
-
-    /// <summary>
-    /// Performs the data search in the table and order the result
-    /// </summary>
-    /// <param name="expression">Lambda expression</param>
-    /// <param name="sortExpression">Lambda expression</param>
-    /// <param name="ascendant">Ascending order if true [default is true]</param>
-    /// <returns>List of entities as IEnumerable</returns>
-    Task<IEnumerable<TEntity>> SortedSearchAsync(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, bool>> sortExpression, bool ascendant = true);
-
-    /// <summary>
-    /// Performs the data search in the table and order the result
-    /// </summary>
-    /// <param name="expression">Lambda expression</param>
-    /// <param name="sortExpression">Lambda expression</param>
-    /// <param name="ascendant">Ascending order if true [default is true]</param>
-    /// <returns>List of entities as IQueryable</returns>
-    Task<IQueryable<TEntity>> SortedQueryableSearchAsync(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, bool>> sortExpression, bool ascendant = true);
 
     /// <summary>
     /// Returns all data from the table
@@ -288,14 +252,14 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// Returns the last data in the table
     /// </summary>
     /// <returns>Entity or Null</returns>
-    Task<TEntity?> GetLastasync();
+    Task<TEntity?> GetLastAsync();
 
     /// <summary>
     /// Returns the last data in the table
     /// </summary>
     /// <param name="expression">Lambda expression</param>
     /// <returns>Entity or Null</returns>
-    Task<TEntity?> GetLastasync(Expression<Func<TEntity, bool>> expression);
+    Task<TEntity?> GetLastAsync(Expression<Func<TEntity, bool>> expression);
 
     /// <summary>
     /// Performs data search in the table and returns the desired quantity, skipping a certain quantity

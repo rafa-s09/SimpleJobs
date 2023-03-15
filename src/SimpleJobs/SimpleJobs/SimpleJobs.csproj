@@ -14,7 +14,8 @@
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Company />
     <Authors>Rafael Souza</Authors>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

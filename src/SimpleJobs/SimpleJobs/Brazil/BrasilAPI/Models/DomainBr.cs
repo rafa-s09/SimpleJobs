@@ -24,26 +24,38 @@ public class DomainBr
     public string? Fqdn { get; set; }
 
     /// <summary>
+    /// Field Name: fqdnace
+    /// </summary>
+    [JsonPropertyName("fqdnace")]
+    public string? Fqdnace { get; set; }
+
+    /// <summary>
+    /// Field Name: exempt
+    /// </summary>
+    [JsonPropertyName("exempt")]
+    public bool? Exempt { get; set; }
+
+    /// <summary>
     /// Field Name: hosts
     /// </summary>
-    [JsonPropertyName("hosts")]
+    [JsonPropertyName("hosts"), JsonIgnore]
     public List<string>? Hosts { get; set; }
 
     /// <summary>
     /// Field Name: publication-status
     /// </summary>
-    [JsonPropertyName("publication-status")]
+    [JsonPropertyName("publication-status"), JsonIgnore]
     public string? PublicationStatus { get; set; }
 
     /// <summary>
     /// Field Name: expires-at
     /// </summary>
-    [JsonPropertyName("expires-at")]
+    [JsonPropertyName("expires-at"), JsonIgnore]
     public string? ExpiresAt { get; set; }
 
     /// <summary>
     /// Field Name: suggestions
     /// </summary>
-    [JsonPropertyName("suggestions")]
+    [JsonPropertyName("suggestions"), JsonIgnore]
     public List<string>? Suggestions { get; set; }
 }

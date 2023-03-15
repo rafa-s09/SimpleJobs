@@ -9,7 +9,7 @@ public class FipeTables
     /// Field Name: codigo
     /// </summary>
     [JsonPropertyName("codigo")]
-    public string? Code { get; set; }
+    public int? Code { get; set; }
 
     /// <summary>
     /// Field Name: mes
@@ -87,7 +87,7 @@ public class FipeVehicle
     /// Field Name: tipoVeiculo
     /// </summary>
     [JsonPropertyName("tipoVeiculo")]
-    public string? VehicleType { get; set; }
+    public int? VehicleType { get; set; }
 
     /// <summary>
     /// Field Name: siglaCombustivel

@@ -84,7 +84,7 @@ public class Cnpj
     /// Field Name: cnae_fiscal
     /// </summary>
     [JsonPropertyName("cnae_fiscal")]
-    public string? FiscalCnae { get; set; }
+    public int? FiscalCnae { get; set; }
 
     /// <summary>
     /// Field Name: cnae_fiscal_descricao
@@ -126,7 +126,7 @@ public class Cnpj
     /// Field Name: cep
     /// </summary>
     [JsonPropertyName("cep")]
-    public int? ZipCode { get; set; }
+    public string? ZipCode { get; set; }
 
     /// <summary>
     /// Field Name: uf
@@ -174,13 +174,13 @@ public class Cnpj
     /// Field Name: capital_social
     /// </summary>
     [JsonPropertyName("capital_social")]
-    public int? ShareCapital { get; set; }
+    public long? ShareCapital { get; set; }
 
     /// <summary>
     /// Field Name: porte
     /// </summary>
     [JsonPropertyName("porte")]
-    public int? Size { get; set; }
+    public string? Size { get; set; }
 
     /// <summary>
     /// Field Name: descricao_porte
@@ -314,5 +314,5 @@ public class Qsa
     /// Field Name: codigo_qualificacao_representante_legal
     /// </summary>
     [JsonPropertyName("codigo_qualificacao_representante_legal")]
-    public string? LegalRepresentativeQualificationCode { get; set; }
+    public int? LegalRepresentativeQualificationCode { get; set; }
 }

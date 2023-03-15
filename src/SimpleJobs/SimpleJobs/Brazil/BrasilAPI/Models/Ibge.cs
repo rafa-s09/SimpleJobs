@@ -23,6 +23,10 @@ public class Ibge
     [JsonPropertyName("nome")]
     public string? Name { get; set; }
 
+    /// <summary>
+    /// Field Name: regiao
+    /// </summary>
+    [JsonPropertyName("regiao")]
     public IbgeRegions? Regions { get; set; }
 }
 

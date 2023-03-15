@@ -1,4 +1,4 @@
-name: .NET 7 + Pack + Push no NuGet
+name: Pack and Push to NuGet
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
     env:
       CAMINHO_SOLUCAO: ./src/SimpleJobs/SimpleJobs.sln
       CAMINHO_PROJETO: ./src/SimpleJobs/SimpleJobs/SimpleJobs.csproj
-      CAMINHO_PROJETO_TESTE: ./src/SimpleJobs/SimpleJobs.Test/SimpleJobs.Test.csproj
+      CAMINHO_PROJETO_TESTE: ./src/SimpleJobs/SimpleJobs.UnitaryTests/SimpleJobs.UnitaryTests.csproj
 
     runs-on: ubuntu-latest
     environment: Production
@@ -28,11 +28,10 @@ jobs:
       run: dotnet pack ${{ env.CAMINHO_PROJETO }} -c Release -o out
       
     - name: Teste do package
-      run: dotnet test ${{ env.CAMINHO_PROJETO_TESTE }} -c Release -o out
+      run: dotnet test ${{ env.CAMINHO_PROJETO_TESTE }} -c Release -o out normal
 
-    - name: Push no NuGet
+    - name: Push to NuGet
       run: |
         cd out
         PACKAGE=$(find -iname \SimpleJobs*.nupkg* -type f | head -1)
         dotnet nuget push ${PACKAGE} --api-key ${{ secrets.NUGET_API_KEY }} --source ${{ secrets.NUGET_SERVER }} --skip-duplicate
-

@@ -26,7 +26,7 @@ public class BrazilHolidays
     /// <summary>
     /// Field Name: fullName
     /// </summary>
-    [JsonPropertyName("fullName")]
+    [JsonPropertyName("fullName"), JsonIgnore]
     public string? FullName { get; set; }
 
 }
