@@ -28,7 +28,7 @@ jobs:
       run: dotnet pack ${{ env.CAMINHO_PROJETO }} -c Release -o out
       
     - name: Teste do package
-      run: dotnet test ${{ env.CAMINHO_PROJETO_TESTE }} -c Release -o out normal
+      run: dotnet test ${{ env.CAMINHO_PROJETO_TESTE }} --no-restore --verbosity normal
 
     - name: Push to NuGet
       run: |
