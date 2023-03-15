@@ -165,36 +165,6 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>, IDisposabl
     }
 
     /// <summary>
-    /// Performs the data search in the table and order the result
-    /// </summary>
-    /// <param name="expression">Lambda expression</param>
-    /// <param name="sortExpression">Lambda expression</param>
-    /// <param name="ascendant">Ascending order if true [default is true]</param>
-    /// <returns>List of entities as IEnumerable</returns>
-    public IEnumerable<TEntity> SortedSearch(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, bool>> sortExpression, bool ascendant = true)
-    {
-        if (ascendant)
-            return _context.Set<TEntity>().Where(expression ?? (x => true)).OrderBy(sortExpression ?? (x => true)).ToList();
-        else
-            return _context.Set<TEntity>().Where(expression ?? (x => true)).OrderByDescending(sortExpression ?? (x => true)).ToList();
-    }
-
-    /// <summary>
-    /// Performs the data search in the table and order the result
-    /// </summary>
-    /// <param name="expression">Lambda expression</param>
-    /// <param name="sortExpression">Lambda expression</param>
-    /// <param name="ascendant">Ascending order if true [default is true]</param>
-    /// <returns>List of entities as IQueryable</returns>
-    public IQueryable<TEntity> SortedQueryableSearch(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, bool>> sortExpression, bool ascendant = true)
-    {
-        if (ascendant)
-            return _context.Set<TEntity>().Where(expression ?? (x => true)).OrderBy(sortExpression ?? (x => true));
-        else
-            return _context.Set<TEntity>().Where(expression ?? (x => true)).OrderByDescending(sortExpression ?? (x => true));
-    }
-
-    /// <summary>
     /// Returns all data from the table
     /// </summary>
     /// <returns>List of entities as IEnumerable</returns>
@@ -449,40 +419,6 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>, IDisposabl
     }
 
     /// <summary>
-    /// Performs the data search in the table and order the result
-    /// </summary>
-    /// <param name="expression">Lambda expression</param>
-    /// <param name="sortExpression">Lambda expression</param>
-    /// <param name="ascendant">Ascending order if true [default is true]</param>
-    /// <returns>List of entities as IEnumerable</returns>
-    public async Task<IEnumerable<TEntity>> SortedSearchAsync(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, bool>> sortExpression, bool ascendant = true)
-    {
-        if (ascendant)
-            return await _context.Set<TEntity>().Where(expression ?? (x => true)).OrderBy(sortExpression ?? (x => true)).ToListAsync();
-        else
-            return await _context.Set<TEntity>().Where(expression ?? (x => true)).OrderByDescending(sortExpression ?? (x => true)).ToListAsync();
-    }
-
-    /// <summary>
-    /// Performs the data search in the table and order the result
-    /// </summary>
-    /// <param name="expression">Lambda expression</param>
-    /// <param name="sortExpression">Lambda expression</param>
-    /// <param name="ascendant">Ascending order if true [default is true]</param>
-    /// <returns>List of entities as IQueryable</returns>
-    public async Task<IQueryable<TEntity>> SortedQueryableSearchAsync(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, bool>> sortExpression, bool ascendant = true)
-    {
-        IQueryable<TEntity> entities;
-        if (ascendant)
-            entities = _context.Set<TEntity>().Where(expression ?? (x => true)).OrderBy(sortExpression ?? (x => true));
-        else
-            entities = _context.Set<TEntity>().Where(expression ?? (x => true)).OrderByDescending(sortExpression ?? (x => true));
-
-        await Task.CompletedTask;
-        return entities;
-    }
-
-    /// <summary>
     /// Returns all data from the table
     /// </summary>
     /// <returns>List of entities as IEnumerable</returns>
@@ -524,7 +460,7 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>, IDisposabl
     /// Returns the last data in the table
     /// </summary>
     /// <returns>Entity or Null</returns>
-    public async Task<TEntity?> GetLastasync()
+    public async Task<TEntity?> GetLastAsync()
     {
         return await _context.Set<TEntity>().LastOrDefaultAsync();
     }
@@ -534,7 +470,7 @@ public abstract class RepositoryBase<TEntity> : IRepository<TEntity>, IDisposabl
     /// </summary>
     /// <param name="expression">Lambda expression</param>
     /// <returns>Entity or Null</returns>
-    public async Task<TEntity?> GetLastasync(Expression<Func<TEntity, bool>> expression)
+    public async Task<TEntity?> GetLastAsync(Expression<Func<TEntity, bool>> expression)
     {
         return await _context.Set<TEntity>().LastOrDefaultAsync(expression ?? (x => true));
     }

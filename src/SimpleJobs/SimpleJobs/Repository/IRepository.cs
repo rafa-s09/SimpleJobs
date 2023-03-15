@@ -68,24 +68,6 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     IQueryable<TEntity> QueryableSearch(Expression<Func<TEntity, bool>> expression);
 
     /// <summary>
-    /// Performs the data search in the table and order the result
-    /// </summary>
-    /// <param name="expression">Lambda expression</param>
-    /// <param name="sortExpression">Lambda expression</param>
-    /// <param name="ascendant">Ascending order if true [default is true]</param>
-    /// <returns>List of entities as IEnumerable</returns>
-    IEnumerable<TEntity> SortedSearch(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, bool>> sortExpression, bool ascendant = true);
-
-    /// <summary>
-    /// Performs the data search in the table and order the result
-    /// </summary>
-    /// <param name="expression">Lambda expression</param>
-    /// <param name="sortExpression">Lambda expression</param>
-    /// <param name="ascendant">Ascending order if true [default is true]</param>
-    /// <returns>List of entities as IQueryable</returns>
-    IQueryable<TEntity> SortedQueryableSearch(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, bool>> sortExpression, bool ascendant = true);
-
-    /// <summary>
     /// Returns all data from the table
     /// </summary>
     /// <returns>List of entities as IEnumerable</returns>
@@ -241,24 +223,6 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     Task<IQueryable<TEntity>> QueryableSearchAsync(Expression<Func<TEntity, bool>> expression);
 
     /// <summary>
-    /// Performs the data search in the table and order the result
-    /// </summary>
-    /// <param name="expression">Lambda expression</param>
-    /// <param name="sortExpression">Lambda expression</param>
-    /// <param name="ascendant">Ascending order if true [default is true]</param>
-    /// <returns>List of entities as IEnumerable</returns>
-    Task<IEnumerable<TEntity>> SortedSearchAsync(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, bool>> sortExpression, bool ascendant = true);
-
-    /// <summary>
-    /// Performs the data search in the table and order the result
-    /// </summary>
-    /// <param name="expression">Lambda expression</param>
-    /// <param name="sortExpression">Lambda expression</param>
-    /// <param name="ascendant">Ascending order if true [default is true]</param>
-    /// <returns>List of entities as IQueryable</returns>
-    Task<IQueryable<TEntity>> SortedQueryableSearchAsync(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, bool>> sortExpression, bool ascendant = true);
-
-    /// <summary>
     /// Returns all data from the table
     /// </summary>
     /// <returns>List of entities as IEnumerable</returns>
@@ -288,14 +252,14 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     /// Returns the last data in the table
     /// </summary>
     /// <returns>Entity or Null</returns>
-    Task<TEntity?> GetLastasync();
+    Task<TEntity?> GetLastAsync();
 
     /// <summary>
     /// Returns the last data in the table
     /// </summary>
     /// <param name="expression">Lambda expression</param>
     /// <returns>Entity or Null</returns>
-    Task<TEntity?> GetLastasync(Expression<Func<TEntity, bool>> expression);
+    Task<TEntity?> GetLastAsync(Expression<Func<TEntity, bool>> expression);
 
     /// <summary>
     /// Performs data search in the table and returns the desired quantity, skipping a certain quantity
