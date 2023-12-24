@@ -28,22 +28,7 @@ public class RepositoryBase<TEntity>(DbContext dbContext) : IDisposable where TE
     /// </summary>
     public void Dispose()
     {
-        Dispose(true);
         GC.SuppressFinalize(this);
-    }
-
-    /// <summary>
-    /// Libera os recursos não gerenciados usados pelo <see cref="RepositoryBase{TEntity}"/>
-    /// e, opcionalmente, libera os recursos gerenciados.
-    /// </summary>
-    /// <param name="disposing">True para liberar os recursos gerenciados e não gerenciados; false para liberar apenas os recursos não gerenciados.</param>
-    protected virtual void Dispose(bool disposing = false)
-    {
-        // TODO: Liberar quaisquer recursos não gerenciados aqui.
-        if (disposing)
-        {
-            // TODO: Liberar quaisquer recursos gerenciados aqui.
-        }
     }
 
     #endregion Disposable

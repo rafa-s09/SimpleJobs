@@ -1,0 +1,16 @@
+[
+RF:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\BrasilAPI\BrasilApiRequest.csutf-8k
+bF:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\BrasilAPI\ResponseEntity\BrasilApiResponse.csutf-8f
+]F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\EntityFrameworkUtility\RepositoryBase.csutf-8g
+^F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Enumerators\DocumentValidationResponse.csutf-8W
+NF:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Enumerators\TextEncode.csutf-8[
+RF:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Security\EncryptionManager.csutf-8S
+JF:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Security\Generator.csutf-8a
+XF:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Security\SignedEncryptionManager.csutf-8G
+>F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Usings.csutf-8[
+RF:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Utility\DocumentValidation.csutf-8S
+JF:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Utility\Extensions.csutf-8m
+bF:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\obj\Debug\net8.0\SimpleJobs.GlobalUsings.g.csutf-8
+tF:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8k
+`F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\obj\Debug\net8.0\SimpleJobs.AssemblyInfo.csutf-8
+tSystem.Text.RegularExpressions.Generator\System.Text.RegularExpressions.Generator.RegexGenerator\RegexGenerator.g.csutf-8

@@ -19,7 +19,7 @@ public static partial class DocumentValidation
     #endregion Regex
 
     #region Validadores
-        
+
     /// <summary>
     /// Valida um CPF.
     /// </summary>
@@ -27,17 +27,46 @@ public static partial class DocumentValidation
     /// <returns>Enumerador correspondente DocumentValidationResponse</returns>
     public static DocumentValidationResponse CPFIsValid(string cpf)
     {
-        ArgumentNullException.ThrowIfNull(cpf);
+        if (string.IsNullOrEmpty(cpf))
+            return DocumentValidationResponse.Invalid;
 
         cpf = cpf.ClearSymbols();
         if (cpf.Length != 11 || !CPFRegex().IsMatch(cpf))
             return DocumentValidationResponse.WrongSize;
 
-
         int[] multiplicadoresPrimeiroDigito = [10, 9, 8, 7, 6, 5, 4, 3, 2];
         int[] multiplicadoresSegundoDigito = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
+        string digitoTemporario, digitoFinal;
+        int somaDigito, resto;
 
-        return CheckDigit(cpf, multiplicadoresPrimeiroDigito) && CheckDigit(cpf, multiplicadoresSegundoDigito) ? DocumentValidationResponse.Valid : DocumentValidationResponse.Invalid;
+        digitoTemporario = cpf[..9];
+        somaDigito = 0;
+
+        for (int i = 0; i < 9; i++)
+            somaDigito += int.Parse(digitoTemporario[i].ToString()) * multiplicadoresPrimeiroDigito[i];
+
+        resto = somaDigito % 11;
+        if (resto < 2)
+            resto = 0;
+        else
+            resto = 11 - resto;
+
+        digitoFinal = resto.ToString();
+        digitoTemporario += digitoFinal;
+        somaDigito = 0;
+
+        for (int i = 0; i < 10; i++)
+            somaDigito += int.Parse(digitoTemporario[i].ToString()) * multiplicadoresSegundoDigito[i];
+
+        resto = somaDigito % 11;
+        if (resto < 2)
+            resto = 0;
+        else
+            resto = 11 - resto;
+
+        digitoFinal += resto.ToString();
+        return cpf.EndsWith(digitoFinal) ? DocumentValidationResponse.Valid : DocumentValidationResponse.Invalid;
+
     }
 
     /// <summary>
@@ -47,7 +76,8 @@ public static partial class DocumentValidation
     /// <returns>Enumerador correspondente DocumentValidationResponse</returns>
     public static DocumentValidationResponse CNPJIsValid(string cnpj)
     {
-        ArgumentNullException.ThrowIfNull(cnpj);
+        if (string.IsNullOrEmpty(cnpj))
+            return DocumentValidationResponse.Invalid;
 
         cnpj = cnpj.ClearSymbols();
         if (cnpj.Length != 14 || !CNPJRegex().IsMatch(cnpj))
@@ -55,8 +85,36 @@ public static partial class DocumentValidation
 
         int[] multiplicadoresPrimeiroDigito = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
         int[] multiplicadoresSegundoDigito = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+        string digitoFinal, digitoTemporario;
+        int somaDigito, resto;
 
-        return CheckDigit(cnpj, multiplicadoresPrimeiroDigito) && CheckDigit(cnpj, multiplicadoresSegundoDigito) ? DocumentValidationResponse.Valid : DocumentValidationResponse.Invalid;
+        digitoTemporario = cnpj[..12];
+        somaDigito = 0;
+
+        for (int i = 0; i < 12; i++)
+            somaDigito += int.Parse(digitoTemporario[i].ToString()) * multiplicadoresPrimeiroDigito[i];
+
+        resto = (somaDigito % 11);
+        if (resto < 2)
+            resto = 0;
+        else
+            resto = 11 - resto;
+
+        digitoFinal = resto.ToString();
+        digitoTemporario += digitoFinal;
+        somaDigito = 0;
+
+        for (int i = 0; i < 13; i++)
+            somaDigito += int.Parse(digitoTemporario[i].ToString()) * multiplicadoresSegundoDigito[i];
+
+        resto = (somaDigito % 11);
+        if (resto < 2)
+            resto = 0;
+        else
+            resto = 11 - resto;
+
+        digitoFinal += resto.ToString();
+        return cnpj.EndsWith(digitoFinal) ? DocumentValidationResponse.Valid : DocumentValidationResponse.Invalid;
     }
 
     /// <summary>
@@ -66,39 +124,30 @@ public static partial class DocumentValidation
     /// <returns>Enumerador correspondente DocumentValidationResponse</returns>
     public static DocumentValidationResponse PISsValid(string pis)
     {
-        ArgumentNullException.ThrowIfNull(pis);
+        if (string.IsNullOrEmpty(pis))
+            return DocumentValidationResponse.Invalid;
 
         pis = pis.ClearSymbols();
         if (pis.Length != 11 || !PISRegex().IsMatch(pis))
             return DocumentValidationResponse.WrongSize;
 
         int[] multiplicadores = [3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+        int somaDigito, resto;
 
-        return CheckDigit(pis, multiplicadores) ? DocumentValidationResponse.Valid : DocumentValidationResponse.Invalid;
+        pis = pis.Trim().Replace("-", "").Replace(".", "").PadLeft(11, '0');
+        somaDigito = 0;
+
+        for (int i = 0; i < 10; i++)
+            somaDigito += int.Parse(pis[i].ToString()) * multiplicadores[i];
+
+        resto = somaDigito % 11;
+        if (resto < 2)
+            resto = 0;
+        else
+            resto = 11 - resto;
+
+        return pis.EndsWith(resto.ToString()) ? DocumentValidationResponse.Valid : DocumentValidationResponse.Invalid;
     }
 
     #endregion Validadores
-
-    #region Private
-
-    /// <summary>
-    /// Realiza a verificação do digito conforme o multiplicador
-    /// </summary>
-    /// <param name="numero">Numero</param>
-    /// <param name="multiplicadores">multiplicadores</param>
-    /// <returns>True se for válido, False caso contrário</returns>
-    private static bool CheckDigit(string numero, int[] multiplicadores)
-    {
-        int soma = 0;
-        for (int i = 0; i < multiplicadores.Length; i++)
-            soma += int.Parse(numero[i].ToString()) * multiplicadores[i];
-
-        int resto = soma % 11;
-        int digitoVerificador = resto < 2 ? 0 : 11 - resto;
-
-        return digitoVerificador == int.Parse(numero[^1].ToString());
-    }
-
-    #endregion Private
-
 }

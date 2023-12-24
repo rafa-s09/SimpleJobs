@@ -69,8 +69,8 @@ public static partial class Extensions
     }
 
     #endregion Text
-
-    #region ClearSpecialCharacters
+     
+    #region Clear Special Characters
 
     /// <summary>
     /// Remove caracteres acentuados de uma string, substituindo-os por suas versões não acentuadas.
@@ -133,7 +133,7 @@ public static partial class Extensions
     [GeneratedRegex(@"[^0-9A-Za-za-çÇáéíóúýÁÉÍÓÚÝàèìòùÀÈÌÒÙãõñäëïöüÿÄËÏÖÜÃÕÑâêîôûÂÊÎÔÛ ,]")]
     private static partial Regex ClearSymbolsRegex();
 
-    #endregion ClearSpecialCharacters
+    #endregion Clear Special Characters
 
     #region Generic Conversions 
 

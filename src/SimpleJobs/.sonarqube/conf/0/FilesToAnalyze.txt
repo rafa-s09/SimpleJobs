@@ -1,0 +1,12 @@
+﻿F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\BrasilAPI\BrasilApiRequest.cs
+F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\BrasilAPI\ResponseEntity\BrasilApiResponse.cs
+F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\EntityFrameworkUtility\RepositoryBase.cs
+F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Enumerators\DocumentValidationResponse.cs
+F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Enumerators\TextEncode.cs
+F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Security\EncryptionManager.cs
+F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Security\Generator.cs
+F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Security\SignedEncryptionManager.cs
+F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Usings.cs
+F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Utility\DocumentValidation.cs
+F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\Utility\Extensions.cs
+F:\Projetos\Git\SimpleJobs\src\SimpleJobs\SimpleJobs\BrasilAPI\README.md

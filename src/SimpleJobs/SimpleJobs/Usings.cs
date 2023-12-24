@@ -8,6 +8,7 @@ global using System.IO;
 global using System.Security.Cryptography;
 global using System.Security.Cryptography.X509Certificates;
 global using System.Text.Json;
+global using System.Text.Json.Serialization;
 
 #endregion System
 
