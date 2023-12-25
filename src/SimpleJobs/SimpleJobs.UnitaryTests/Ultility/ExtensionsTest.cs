@@ -1,7 +1,9 @@
-ï»¿namespace SimpleJobs.UnitaryTests.Utility;
+namespace SimpleJobs.UnitaryTests.Ultility;
 
-public class ExtensionsTest : BaseTest
+public class ExtensionsTest : TestBase
 {
+    #region Text
+
     [Theory]
     [InlineData("abcdef", 'c', "ab")]
     [InlineData("abcdef", 'x', "")]
@@ -46,9 +48,14 @@ public class ExtensionsTest : BaseTest
         result.Should().Be(expectedOutput);
     }
 
+
+    #endregion Text
+
+    #region Clear Special Characters
+
     [Theory]
-    [InlineData("MÃ«tÃ l HÃ«Ã d", "Metal Head")]
-    [InlineData("Ã„bcdef", "Abcdef")]
+    [InlineData("Mëtàl Hëàd", "Metal Head")]
+    [InlineData("Äbcdef", "Abcdef")]
     [InlineData("", "")]
     public void ClearAccentedCharacters_ReturnsExpectedResult(string input, string expectedOutput)
     {
@@ -70,7 +77,7 @@ public class ExtensionsTest : BaseTest
     [InlineData("abcdef", true, "abcdef")]
     [InlineData("abcdef", false, "abcdef")]
     [InlineData("", true, "")]
-    [InlineData("", false, "")]    
+    [InlineData("", false, "")]
     public void ClearSymbols_ReturnsExpectedResult(string input, bool useSpace, string expectedOutput)
     {
         string result = input.ClearSymbols(useSpace);
@@ -87,10 +94,10 @@ public class ExtensionsTest : BaseTest
     }
 
     [Theory]
-    [InlineData(@"MÃ«tÃ l!@#$%^&*()_+}{[]|:';<>,.?/~HÃ«Ã d", true, "Metal                           Head")]
-    [InlineData(@"MÃ«tÃ l!@#$%^&*()_+}{[]|:';<>,.?/~HÃ«Ã d", false, "MetalHead")]
-    [InlineData("MÃ«tÃ lHÃ«Ã d", true, "MetalHead")]
-    [InlineData("MÃ«tÃ lHÃ«Ã d", false, "MetalHead")]
+    [InlineData(@"Mëtàl!@#$%^&*()_+}{[]|:';<>,.?/~Hëàd", true, "Metal                           Head")]
+    [InlineData(@"Mëtàl!@#$%^&*()_+}{[]|:';<>,.?/~Hëàd", false, "MetalHead")]
+    [InlineData("MëtàlHëàd", true, "MetalHead")]
+    [InlineData("MëtàlHëàd", false, "MetalHead")]
     [InlineData("", true, "")]
     [InlineData("", false, "")]
     public void ClearSpecialCharacters_ReturnsExpectedResult(string input, bool useSpace, string expectedOutput)
@@ -107,6 +114,10 @@ public class ExtensionsTest : BaseTest
         Action act = () => input.ClearSpecialCharacters(useSpace);
         act.Should().ThrowExactly<ArgumentNullException>();
     }
+
+    #endregion Clear Special Characters
+
+    #region Generic Conversions 
 
     [Theory]
     [InlineData("hello world", TextEncode.ASCII)]
@@ -244,4 +255,6 @@ public class ExtensionsTest : BaseTest
         act.Should().ThrowExactly<ArgumentNullException>();
     }
 
+
+    #endregion Generic Conversions 
 }

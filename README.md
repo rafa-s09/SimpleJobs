@@ -11,14 +11,14 @@ Simple Jobs é um Framework de recursos comuns para uso de aplicação dotNet.
 
 Pacote | Versão
 --- | ---
-[Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore) | 7.0.1
+[Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore) | 8.0.0
 
 
 <br/>
 
-## Documentation
+## Documentação
 
-> Work in Progress
+> Em desenvolvimento
 
 <br/>
 
