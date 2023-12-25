@@ -1,1 +1,0 @@
-F:\Projetos\Git\SimpleJobs\src\SimpleJobs\.sonarqube\out\0

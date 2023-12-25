@@ -1,6 +1,0 @@
-projectKey=SimpleJobs
-serverUrl=http://localhost:9000
-serverVersion=10.3.0.82913
-dashboardUrl=http://localhost:9000/dashboard?id=SimpleJobs
-ceTaskId=AYxoqeYN9TZZK1BDRuN3
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYxoqeYN9TZZK1BDRuN3
